@@ -1,0 +1,15 @@
+{
+  "record": {
+    "hosts": [
+      "localhost",
+      "127.0.0.1",
+      "192.168.0.21",
+      "0.0.0.0"
+    ],
+    "hash": {
+      "key": "726c83c261d4efd5e3d0fe05c98dbef1168e904d95a5bf3376d218dc7092b31f",
+      "cert": "d30e3c2bd9d0658c2d3187cb3a27e13663e27de2292088d4da45e71bfc281ba9"
+    }
+  },
+  "configFilePath": "/Users/hoyour/github/rg-ddr-3/certs/config.json"
+}
