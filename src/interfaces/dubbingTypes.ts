@@ -2,7 +2,6 @@
 export type DubbingStep =
   | 'watch-video-intro'
   | 'watch-video'
-  | 'dubbing-intro'
   | 'dubbing'
   | 'my-movie-intro'
   | 'my-movie'

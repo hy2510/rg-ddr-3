@@ -86,6 +86,15 @@ const StyledSquareButton = styled.div<{
     width: 36px;
     height: 36px;
   }
+
+  flex-shrink: 0;
+  @media (max-width: 1023px), (max-height: 500px) {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    .icon { width: 28px; height: 28px; }
+  }
+
 `
 
 // 직사각형 버튼
@@ -261,6 +270,21 @@ const StyledPopupButton = styled.div<{
     $buttonColor === 'gray' ? '#e9edf3' : '#00cf00'};
   color: ${({ $buttonColor }) =>
     $buttonColor === 'gray' ? '#3c4b62' : '#fff'};
+
+  @media (max-width: 767px), (max-height: 500px) {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 160px;
+    height: 48px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    border-radius: 24px;
+    font-size: 18px;
+    line-height: 1.2;
+    white-space: nowrap;
+
+    &:only-child { flex: 0 1 140px; }
+  }
 `
 
 // 스코어 다시 보기 버튼
@@ -289,5 +313,12 @@ const StyledSeeScoreBoardButton = styled.div`
     display: block;
     width: 36px;
     height: 36px;
+  }
+
+  @media (max-width: 767px), (max-height: 500px) {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    img { width: 28px; height: 28px; }
   }
 `

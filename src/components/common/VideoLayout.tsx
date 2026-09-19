@@ -1,3 +1,4 @@
+import VideoBackdrop from '@components/common/VideoBackdrop'
 import type { Ref, RefObject } from 'react'
 import styled, { keyframes } from 'styled-components'
 
@@ -34,6 +35,7 @@ export function WatchVideoLayout({
       onClick={isVideoEnded ? undefined : onClickRestart}
       $isVideoEnded={isVideoEnded}
     >
+      <VideoBackdrop />
       <StyledVideo
         ref={videoRef as Ref<HTMLVideoElement>}
         src={src}
@@ -65,8 +67,11 @@ export function WatchVideoLayout({
 
 const StyledWatchVideo = styled.div<{ $isVideoEnded: boolean }>`
   position: relative;
-  width: 1280px;
-  height: 720px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex: 1 1 0;
+  overflow: hidden;
   margin: auto;
   cursor: ${({ $isVideoEnded }) => ($isVideoEnded ? 'default' : 'pointer')};
 
@@ -84,10 +89,32 @@ const StyledWatchVideo = styled.div<{ $isVideoEnded: boolean }>`
     -webkit-backdrop-filter: blur(5px);
     backdrop-filter: blur(5px);
     transition: all 0.3s ease;
+
+    @media (max-width: 767px), (max-width: 1023px) and (max-height: 500px) {
+      gap: 24px;
+
+      > div {
+        width: 80px;
+        height: 80px;
+        flex-shrink: 0;
+        background-size: 8px;
+        background-position: left 14px top 14px;
+
+        img {
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
   }
 `
 
 const StyledVideo = styled.video`
+  position: absolute;
+  inset: 0;
+  display: block;
+  object-fit: contain;
+  z-index: 1;
   width: 100%;
   height: 100%;
 `
@@ -142,6 +169,7 @@ export function DubbingVideoLayout({
 }: DubbingVideoLayoutProps) {
   return (
     <StyledDubbingVideo>
+      <VideoBackdrop />
       <StyledVideo
         ref={videoRef as Ref<HTMLVideoElement>}
         src={src}
@@ -156,7 +184,10 @@ export function DubbingVideoLayout({
 
 const StyledDubbingVideo = styled.div`
   position: relative;
-  width: 1280px;
-  height: 720px;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex: 1 1 0;
+  overflow: hidden;
   margin: auto;
 `

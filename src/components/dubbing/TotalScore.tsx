@@ -128,7 +128,8 @@ const StyledTotalScore = styled.div`
   align-items: stretch;
   gap: 24px;
   width: 640px;
-  max-width: 80vw;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 8px 4px;
 
   .header-title {
@@ -258,4 +259,18 @@ const StyledTotalScore = styled.div`
     flex-wrap: wrap;
     padding-top: 8px;
   }
+
+  @media (max-width: 767px), (max-height: 500px) {
+    gap: 16px;
+    .header-title { font-size: 26px; }
+    .result-item { grid-template-columns: 20px minmax(0, 1fr) auto; gap: 8px; padding: 10px; font-size: 16px; }
+    .result-rate { padding: 4px 6px; }
+    .total-score { padding: 12px 4px; gap: 10px; flex-wrap: wrap; font-size: 18px; }
+    .action-row {
+      gap: 12px;
+      flex-wrap: nowrap;
+
+    }
+  }
+
 `

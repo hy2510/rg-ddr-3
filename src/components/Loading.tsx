@@ -9,7 +9,7 @@ const spin = keyframes`
 export default function Loading() {
   return (
     <StyledLoading>
-      <span className='spinner' aria-label='로딩 중' />
+      <span className='spinner' aria-label='Loading' />
     </StyledLoading>
   )
 }

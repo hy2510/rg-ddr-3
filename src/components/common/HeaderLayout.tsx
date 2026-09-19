@@ -9,8 +9,6 @@ import iconDelete from '@src/assets/icons/dubbing/icon_delete.svg'
 type HeaderProps = {
   studyTitle: string
   isWatchVideo?: boolean
-  /** `dubbing-intro` — 녹음 시작 전 안내 화면 */
-  isDubbingIntro?: boolean
   isOnAir?: boolean
   onAirMode?: string
   isMyMovie?: boolean
@@ -23,7 +21,6 @@ type HeaderProps = {
 export function HeaderLayout({
   studyTitle,
   isWatchVideo,
-  isDubbingIntro,
   isOnAir,
   onAirMode,
   isMyMovie,
@@ -59,7 +56,6 @@ export function HeaderLayout({
               {onAirMode && <div className='mode-label'>{onAirModeLabel}</div>}
             </>
           )}
-          {isDubbingIntro && <></>}
           {isWatchVideo && <></>}
         </div>
         <SquareButton icon={iconDelete} onClick={handleCloseClick} />
@@ -138,4 +134,17 @@ const StyledHeader = styled.div`
       box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.32);
     }
   }
+
+  @media (max-width: 1023px), (max-height: 500px) {
+    width: auto;
+    top: calc(10px + env(safe-area-inset-top, 0px));
+    left: calc(12px + env(safe-area-inset-left, 0px));
+    right: calc(12px + env(safe-area-inset-right, 0px));
+    height: 48px;
+    grid-template-columns: minmax(0, 1fr) 48px;
+    .title-container { justify-content: flex-start; gap: 8px; }
+    .title-container .title { font-size: 20px; }
+    .title-container .mode-label { min-width: 0; font-size: 14px; padding: 6px 10px; }
+  }
+
 `

@@ -118,4 +118,38 @@ const StyledPopupLayout = styled.div`
     bottom: 0;
     z-index: 1000;
   }
+
+  position: fixed;
+  box-sizing: border-box;
+  padding: calc(12px + env(safe-area-inset-top, 0px)) calc(12px + env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) calc(12px + env(safe-area-inset-left, 0px));
+  .popup-container {
+    box-sizing: border-box;
+    max-width: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    flex-shrink: 1;
+    .contents { height: auto; flex-shrink: 0; text-align: center; }
+  }
+  @media (max-width: 767px), (max-height: 500px) {
+    .popup-container {
+      width: min(100%, 560px);
+      min-width: 0;
+      min-height: 0;
+      padding: 20px 16px;
+      border-radius: 28px;
+      gap: 24px;
+      justify-content: flex-start;
+      .contents { font-size: 20px; }
+      .buttons, .action-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: nowrap;
+      }
+    }
+  }
+
 `

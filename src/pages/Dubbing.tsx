@@ -1,3 +1,4 @@
+import VideoBackdrop from '@components/common/VideoBackdrop'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import styled from 'styled-components'
@@ -722,13 +723,13 @@ export default function Dubbing({ onCompleteMyMovie }: DubbingProps) {
     <>
       <StyledDubbingRoot>
         <StyledVideoShell>
+          <VideoBackdrop />
           <video
             ref={videoRef}
             src={detailContentInfo.VideoPath}
             playsInline
             crossOrigin='anonymous'
             muted={false}
-            style={{ objectFit: 'contain', width: '100%', height: '100%' }}
           />
         </StyledVideoShell>
 
@@ -823,6 +824,13 @@ const StyledReadyGoOverlay = styled.div`
     color: #fff;
   }
 
+  @media (max-width: 767px), (max-width: 1023px) and (max-height: 500px) {
+    .ready-go-text {
+      font-size: clamp(48px, 12vw, 72px);
+      line-height: 1.1;
+    }
+  }
+
   @keyframes ready-go-pop {
     0% {
       transform: scale(0.6);
@@ -879,9 +887,11 @@ const StyledVideoShell = styled.div`
 
   video {
     width: 100%;
-    max-width: 1280px;
     height: 100%;
-    max-height: 720px;
     object-fit: contain;
+    z-index: 1;
+    position: absolute;
+    inset: 0;
+    display: block;
   }
 `

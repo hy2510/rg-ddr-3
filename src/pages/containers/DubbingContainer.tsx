@@ -30,7 +30,6 @@ import {
 import {
   iconIntroMyMovie,
   iconIntroPlay,
-  iconIntroRecord,
   imgModeFull,
   imgModeSingle,
 } from '@utils/Assets'
@@ -222,7 +221,7 @@ export default function DubbingContainer() {
     })
 
     setIsArchiveModeSelectionIntro(false)
-    setStep('dubbing-intro')
+    setStep('dubbing')
   }
 
   const handleOpenArchiveModePicker = useCallback(() => {
@@ -417,10 +416,10 @@ export default function DubbingContainer() {
               stepComment={
                 canShowIntroArchiveMyMovie
                   ? 'Choose an activity!'
-                  : 'Step1 · Let’s watch first!'
+                  : 'Let’s watch first!'
               }
               buttonText={
-                canShowIntroArchiveMyMovie ? 'Watch & Speak' : 'Watch!'
+                canShowIntroArchiveMyMovie ? 'Watch & Speak' : 'Start!'
               }
               buttonIcon={iconIntroPlay}
               buttonColor='#3c4b62'
@@ -440,17 +439,6 @@ export default function DubbingContainer() {
         )
       case 'watch-video':
         return <WatchVideo handleSelectMode={handleSelectMode} />
-      case 'dubbing-intro':
-        return (
-          <IntroLayout
-            stepComment='Step2 · Speak Along!'
-            thumbnailImage={introThumbnail}
-            onClick={() => setStep('dubbing')}
-            buttonText="Let's Speak!"
-            buttonIcon={iconIntroRecord}
-            buttonColor='#3c4b62'
-          />
-        )
       case 'dubbing':
         return (
           <Dubbing
@@ -553,9 +541,9 @@ export default function DubbingContainer() {
       <FrameBody bgColor='#3B75FF'>
         {showLowMemoryWarning && (
           <PopupLayout
-            contents='현재 기기의 메모리가 낮아 일부 기능이 원활하지 않을 수 있습니다.'
+            contents='Your device is low on memory. Some features may not work well.'
             confirm={false}
-            confirmText='확인'
+            confirmText='OK'
             onConfirm={() => setShowLowMemoryWarning(false)}
           />
         )}
@@ -565,7 +553,6 @@ export default function DubbingContainer() {
             isWatchVideo={
               step === 'watch-video-intro' || step === 'watch-video'
             }
-            isDubbingIntro={step === 'dubbing-intro'}
             isOnAir={step === 'dubbing'}
             onAirMode={step === 'dubbing' ? detailContentInfo.StudyMode : ''}
             isMyMovie={step === 'my-movie-intro' || step === 'my-movie'}
@@ -578,15 +565,14 @@ export default function DubbingContainer() {
   )
 }
 
-const DUBBING_ROOM_BASE_WIDTH = 1280
-const DUBBING_ROOM_BASE_HEIGHT = 720
-
 const StyledDubbingRoom = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  width: ${DUBBING_ROOM_BASE_WIDTH}px;
-  height: ${DUBBING_ROOM_BASE_HEIGHT}px;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  overflow: hidden;
   margin: auto;
   position: relative;
 `
@@ -664,7 +650,7 @@ const StyledArchiveModePicker = styled.div`
     img {
       width: 132px;
       height: 92px;
-      object-fit: contain;
+      object-fit: cover;
     }
 
     span {
@@ -681,6 +667,18 @@ const StyledArchiveModePicker = styled.div`
       text-align: center;
     }
   }
+
+  max-width: 100%;
+  @media (max-width: 767px), (max-height: 500px) {
+    width: 100%;
+    gap: 20px;
+    .mode-list { gap: 12px; }
+    .mode-card { width: auto; flex: 1 1 0; min-width: 0; height: auto; min-height: 160px; padding: 16px 8px; border-radius: 24px; gap: 8px; }
+    .mode-card img { width: min(100%, 100px); height: 70px; }
+    .mode-card span { font-size: 26px; }
+    .mode-card small { font-size: 12px; line-height: 1.3; }
+  }
+
 `
 
 const StyledMyMovieVideo = styled.div<{ $visible: boolean }>`
@@ -704,7 +702,7 @@ const StyledMyMovieVideo = styled.div<{ $visible: boolean }>`
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background: #000;
+    background: transparent;
     display: ${({ $visible }) => ($visible ? 'block' : 'none')};
   }
 

@@ -181,4 +181,16 @@ const StyledSelectModeContainer = styled.div`
       white-space: pre-line;
     }
   }
+
+  max-width: 100%;
+  @media (max-width: 767px), (max-height: 500px) {
+    width: 100%;
+    gap: 20px;
+    .mode-list { gap: 12px; }
+    .mode-card { width: auto; flex: 1 1 0; min-width: 0; height: auto; min-height: 160px; padding: 16px 8px; border-radius: 24px; gap: 8px; }
+    .mode-card img { width: min(100%, 100px); height: 70px; }
+    .mode-card span { font-size: 26px; }
+    .mode-card small { font-size: 12px; line-height: 1.3; }
+  }
+
 `

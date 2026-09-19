@@ -120,7 +120,7 @@ export async function mergeMyMovieAndDownload(
   } = options
 
   if (!isMergeMyMovieSupported()) {
-    throw new Error('현재 브라우저에서 지원하지 않는 기능입니다.')
+    throw new Error('This feature is not supported in your browser.')
   }
 
   const report = (p: number, msg?: string) => {

@@ -1,3 +1,4 @@
+import VideoBackdrop from '@components/common/VideoBackdrop'
 import {
   type ReactNode,
   type Ref,
@@ -120,6 +121,7 @@ export function MyMoviePlayer({
 
   return (
     <Shell className='my-movie-player-root'>
+      <VideoBackdrop />
       <video
         ref={videoRef as Ref<HTMLVideoElement>}
         src={src}
@@ -133,7 +135,7 @@ export function MyMoviePlayer({
       {showCenterPlay && (
         <CenterPlay
           type='button'
-          aria-label={ended ? '처음부터 재생' : '재생'}
+          aria-label={ended ? 'Play again' : 'Play'}
           onClick={(e) => {
             e.stopPropagation()
             togglePlay()
@@ -148,14 +150,14 @@ export function MyMoviePlayer({
       >
         <IconButton
           type='button'
-          aria-label={paused ? '재생' : '일시정지'}
+          aria-label={paused ? 'Play' : 'Pause'}
           onClick={togglePlay}
         >
           {paused ? <VideoPlayIcon size={28} /> : <PauseBarsIcon size={28} />}
         </IconButton>
         <Seek
           type='range'
-          aria-label='재생 위치'
+          aria-label='Video progress'
           min={0}
           max={duration > 0 ? duration : 0}
           step={0.05}
@@ -188,7 +190,9 @@ const Shell = styled.div`
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background: #000;
+    position: relative;
+    z-index: 1;
+    background: transparent;
     cursor: pointer;
   }
 `
@@ -217,6 +221,14 @@ const CenterPlay = styled.button`
     filter: brightness(0.92);
     transform: translate(-50%, -50%) scale(0.98);
   }
+
+  @media (max-width: 767px), (max-width: 1023px) and (max-height: 500px) {
+    width: 80px;
+    height: 80px;
+    background-size: 8px;
+    background-position: left 14px top 14px;
+    img { width: 48px; height: 48px; }
+  }
 `
 
 const Controls = styled.div`
@@ -236,6 +248,26 @@ const Controls = styled.div`
     rgba(0, 0, 0, 0.55) 40%,
     rgba(0, 0, 0, 0.82) 100%
   );
+
+  padding-bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  @media (max-width: 767px), (max-height: 500px) {
+    gap: 8px;
+    padding: 16px 12px calc(12px + env(safe-area-inset-bottom, 0px));
+    flex-wrap: nowrap;
+    input[type='range'] { min-width: 0; }
+  }
+
+  @media (max-width: 767px) and (orientation: portrait) {
+    flex-wrap: wrap;
+    input[type='range'] {
+      order: -1;
+      flex: 1 0 100%;
+      width: 100%;
+      margin: 12px 0;
+    }
+    > span { flex: 1; }
+  }
+
 `
 
 const IconButton = styled.button`
@@ -254,6 +286,13 @@ const IconButton = styled.button`
   &:hover {
     background: rgba(0, 0, 0, 0.25);
   }
+
+  @media (max-width: 767px), (max-height: 500px) {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+  }
+
 `
 
 const TimeText = styled.span`

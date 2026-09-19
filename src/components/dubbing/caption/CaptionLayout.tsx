@@ -7,7 +7,10 @@ import { iconArrowLeft, iconArrowRight, iconMic, iconPlay } from '@utils/Assets'
 
 /** 시청·더빙 공통: 캡션 바 위치·크기 (display 는 단계별로 다름) */
 const captionBarShell = css`
-  width: calc(100% - 86px);
+  width: calc(100% - 20px);
+  max-width: 1024px;
+  box-sizing: border-box;
+  margin-inline: auto;
   min-height: 120px;
   border-radius: 40px;
   padding: 0 30px;
@@ -16,6 +19,24 @@ const captionBarShell = css`
   left: 10px;
   right: 10px;
   z-index: 1;
+
+  bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+  max-height: 45dvh;
+  overflow-y: auto;
+  @media (max-width: 1023px) {
+    min-height: 96px;
+    padding: 12px 18px;
+    border-radius: 28px;
+  }
+  @media (max-width: 767px), (max-height: 500px) {
+    width: auto;
+    left: calc(8px + env(safe-area-inset-left, 0px));
+    right: calc(8px + env(safe-area-inset-right, 0px));
+    min-height: 72px;
+    padding: 10px 12px;
+    border-radius: 24px;
+  }
+
 `
 
 /** watch-video: 좌 화살표 | 인덱스 | 우 화살표 그리드 */
@@ -32,6 +53,23 @@ const watchCaptionBarGrid = css`
     text-align: center;
     font-variant-numeric: tabular-nums;
   }
+
+  @media (max-width: 1023px), (max-height: 500px) {
+    grid-template-columns: minmax(0, 1fr) 48px 56px 48px;
+    .caption-index { font-size: 18px; }
+  }
+  @media (max-width: 767px) and (orientation: portrait) {
+    grid-template-columns: 1fr 56px 1fr;
+    > :first-child {
+      grid-column: 1 / -1;
+      min-height: calc(28px * 1.3 + 10px);
+      box-sizing: border-box;
+      padding-bottom: 10px;
+    }
+    > :nth-child(2) { justify-self: end; }
+    > :last-child { justify-self: start; }
+  }
+
 `
 
 const captionTextStyle = css`
@@ -81,6 +119,22 @@ const captionTextStyle = css`
   .caption-word.is-matched {
     color: #ffd54a;
   }
+
+  min-width: 0;
+  .caption-text { min-width: 0; overflow-wrap: anywhere; }
+  @media (max-width: 1023px) {
+    gap: 12px;
+    .caption-text { font-size: 28px; line-height: 1.25; gap: 6px; }
+    .caption-character { width: 44px; height: 44px; }
+    .caption-characters { gap: 4px; flex-wrap: wrap; max-width: 92px; }
+  }
+  @media (max-width: 767px), (max-height: 500px) {
+    gap: 8px;
+    .caption-text { font-size: 28px; line-height: 1.3; gap: 5px; }
+    .caption-character { width: 32px; height: 32px; }
+    .caption-characters { max-width: 68px; }
+  }
+
 `
 
 const CHARACTER_IMAGE_BASE_URL =
@@ -456,6 +510,25 @@ const StyledDubbingCaption = styled.div<{
         color: #35a900;
       }
     `}
+
+  @media (max-width: 1023px), (max-height: 500px) {
+    gap: 12px;
+    .dubbing-caption-buttons { gap: 10px; }
+  }
+  @media (max-width: 767px), (max-width: 1023px) and (max-height: 500px) {
+    .whisper-pending-overlay {
+      gap: 8px;
+      border-radius: inherit;
+      .whisper-spinner { width: 20px; height: 20px; border-width: 2px; }
+      span:not(.whisper-spinner) { font-size: 18px; }
+    }
+  }
+  @media (max-width: 767px) and (orientation: portrait) {
+    flex-direction: column;
+    align-items: stretch;
+    .dubbing-caption-buttons { justify-content: center; flex-wrap: wrap; }
+  }
+
 `
 
 const StyledDubbingCaptionText = styled.div`
